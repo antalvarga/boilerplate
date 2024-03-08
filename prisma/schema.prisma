@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Aluno {
+  aluno              String   @id
+  nome               String
+  nomepai            String
+  nomemae            String
+  nomeresponsavel    String
+  nomeresponsavelped String
+  cpf                String
+  cpfpai             String
+  cpfmae             String
+  cpfresponsavel     String
+  cpfresponsavelped  String
+  datanascimento     DateTime
+  sexo               String
+  logradouro         String
+  numero             Int
+  complemento        String
+  bairro             String
+  municipio          String
+  uf                 String
+  cep                String
+  telefone           String
+  email              String
+  logradourorf       String
+  numerorf           Int
+  complementorf      String
+  bairrorf           String
+  municipiorf        String
+  ceprf              String
+  ufrf               String
+  enderecoigualrf    String   @default("false")
+
+  @@map("aluno")
+}
+
+model Acordo {
+  aluno          String   @id
+  sequencia      Int
+  curso          Int
+  data           DateTime
+  status         Int
+  tipo           Int
+  ntitulos       Int
+  valorprincipal Decimal
+  multa          Decimal
+  permanencia    Decimal
+  desconto       Decimal
+  juros          Decimal
+  dataentrada    DateTime
+  entrada        Decimal
+  nparcelas      Int
+  valorparcelas  Decimal
+  nparcelaspagas Int
+  usuario        String
+
+  @@map("acordo")
+}
+
+model User {
+  id            String        @id @default(uuid())
+  username      String        @unique
+  name          String
+  email         String        @unique
+  whatsapp      String
+  password      String
+  birth         DateTime
+  secret        String?
+  refresh_token RefreshToken?
+
+  @@map("users")
+}
+
+model RefreshToken {
+  id        String @id @default(uuid())
+  expiresIn Int
+  user      User   @relation(fields: [userId], references: [id])
+  userId    String @unique
+
+  @@map("refresh_token")
+}

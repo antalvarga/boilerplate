@@ -1,0 +1,7 @@
+node_modules
+/src/services/Email/Nodemailer
+/src/services/Email/SmtpClient
+# Keep environment variables out of version control
+.env
+
+
